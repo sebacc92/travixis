@@ -1,4 +1,5 @@
 import { component$ } from "@builder.io/qwik";
+import logoSrc from "~/media/logo2.svg";
 
 export const Footer = component$(() => {
   const year = new Date().getFullYear();
@@ -6,25 +7,23 @@ export const Footer = component$(() => {
   return (
     <footer
       id="contacto"
-      class="bg-[#0D1B3E] text-white"
+      class="bg-[#01254f] text-white"
       aria-labelledby="footer-heading"
     >
       {/* Main footer content */}
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
 
           {/* Brand column */}
           <div class="md:col-span-1">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="flex items-center justify-center w-10 h-10 bg-[#C8102E] rounded-lg">
-                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-                </svg>
-              </div>
-              <div class="leading-none">
-                <p class="font-black text-lg tracking-tight">TRAVIXIS</p>
-                <p class="text-[#C8102E] text-xs font-medium tracking-widest uppercase">Travel Care</p>
-              </div>
+            <div class="mb-6">
+              <img
+                src={logoSrc}
+                alt="Travixis Logo"
+                width={120}
+                height={120}
+                class="h-14 w-auto object-contain"
+              />
             </div>
             <p class="text-white/50 text-sm leading-relaxed max-w-xs">
               Tu asistencia de viaje de confianza. Estés donde estés, estamos con vos.
@@ -106,7 +105,7 @@ export const Footer = component$(() => {
 
       {/* Legal bar */}
       <div class="border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p class="text-white/30 text-xs text-center sm:text-left leading-relaxed">
             © {year} Travixis Travel Care. Servicio prestado por{" "}
             <strong class="text-white/40">Universal Assistance S.A.</strong> Av. Córdoba 967 (C1054AAI) Buenos Aires. Argentina.

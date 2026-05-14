@@ -1,5 +1,6 @@
 import { component$, Slot, useSignal } from "@builder.io/qwik";
 import { Link, useLocation } from "@builder.io/qwik-city";
+import logoSrc from "~/media/logo.svg";
 
 export default component$(() => {
   const loc = useLocation();
@@ -64,19 +65,11 @@ export default component$(() => {
         <div class="h-20 flex items-center px-6 border-b border-white/10 overflow-hidden">
           {isCollapsed.value ? (
             <div class="w-full flex justify-center">
-              <div class="flex items-center justify-center w-8 h-8 bg-[#C8102E] rounded-lg shadow-lg shrink-0">
-                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-                </svg>
-              </div>
+              <img src={logoSrc} alt="T" class="w-8 h-8 object-contain shrink-0" />
             </div>
           ) : (
             <div class="flex items-center gap-3">
-              <div class="flex items-center justify-center w-8 h-8 bg-[#C8102E] rounded-lg shadow-lg shrink-0">
-                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-                </svg>
-              </div>
+              <img src={logoSrc} alt="Travixis" class="w-8 h-8 object-contain shrink-0" />
               <div class="flex flex-col leading-none">
                 <span class="text-white font-bold text-base tracking-tight uppercase">Travixis</span>
                 <span class="text-[#C8102E] text-[10px] font-medium tracking-widest uppercase">Admin</span>

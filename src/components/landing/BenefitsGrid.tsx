@@ -4,10 +4,10 @@ export const BenefitsGrid = component$(() => {
   return (
     <section
       id="beneficios"
-      class="py-32 bg-white"
+      class="relative py-24 bg-slate-50 overflow-hidden"
       aria-labelledby="benefits-heading"
     >
-      <div class="max-w-7xl mx-auto px-6 w-full">
+      <div class="max-w-[1600px] mx-auto px-6 w-full">
         {/* Cabecera de Sección */}
         <div class="mb-16 md:w-2/3">
           <h2

@@ -40,10 +40,9 @@ export const CoverageSection = component$(() => {
   return (
     <section
       id="cobertura"
-      class="py-24 bg-slate-50"
-      aria-labelledby="coverage-heading"
+      class="relative py-24 bg-white overflow-hidden"
     >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
         <div class="text-center mb-16">
