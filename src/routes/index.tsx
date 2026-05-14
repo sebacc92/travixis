@@ -3,6 +3,7 @@ import { routeLoader$, routeAction$, zod$, z, type DocumentHead } from "@builder
 import { Navbar } from "~/components/landing/Navbar";
 import { Hero } from "~/components/landing/Hero";
 import { ServicesStrip } from "~/components/landing/ServicesStrip";
+import { AboutSection } from "~/components/landing/AboutSection";
 import { BenefitsGrid } from "~/components/landing/BenefitsGrid";
 import { CoverageSection } from "~/components/landing/CoverageSection";
 import { Footer } from "~/components/landing/Footer";
@@ -121,6 +122,7 @@ export default component$(() => {
           whatsappNumber={settings.value?.whatsappNumber}
         />
         <ServicesStrip />
+        <AboutSection />
         <BenefitsGrid />
         <CoverageSection />
         <Contact />
