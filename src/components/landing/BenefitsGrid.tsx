@@ -1,156 +1,101 @@
 import { component$ } from "@builder.io/qwik";
 
-interface Benefit {
-  icon: string;
-  title: string;
-  description: string;
-  stat: string;
-  statLabel: string;
-  color: string;
-  bgColor: string;
-}
-
-const BENEFITS: Benefit[] = [
-  {
-    icon: "M13 10V3L4 14h7v7l9-11h-7z",
-    title: "Respuesta Rápida ante Emergencias",
-    description:
-      "Activamos la asistencia en minutos. Coordinamos traslados, internaciones y atención médica urgente sin que tengas que preocuparte por los trámites.",
-    stat: "< 10 min",
-    statLabel: "Tiempo de respuesta promedio",
-    color: "#C8102E",
-    bgColor: "#fef2f2",
-  },
-  {
-    icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
-    title: "Coordinación Médica Profesional",
-    description:
-      "Médicos de guardia disponibles las 24 horas. Gestionamos hospitalizaciones, traslados sanitarios y reintegros de gastos médicos en destino.",
-    stat: "24 / 7",
-    statLabel: "Médicos de guardia disponibles",
-    color: "#0D1B3E",
-    bgColor: "#eff6ff",
-  },
-  {
-    icon: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064",
-    title: "Cobertura Integral Durante el Viaje",
-    description:
-      "Emergencias médicas, reintegro de medicamentos al 30 % e indemnización por pérdida de equipaje hasta USD 1.200. Todo en un solo plan anual.",
-    stat: "USD 1.200",
-    statLabel: "Indemnización máxima por equipaje",
-    color: "#059669",
-    bgColor: "#f0fdf4",
-  },
-];
-
 export const BenefitsGrid = component$(() => {
   return (
     <section
       id="beneficios"
-      class="py-24 bg-white"
+      class="py-32 bg-white"
       aria-labelledby="benefits-heading"
     >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* Section Header */}
-        <div class="text-center mb-16">
-          <div class="inline-flex items-center gap-2 bg-[#0D1B3E]/5 rounded-full px-4 py-2 mb-4">
-            <span class="w-2 h-2 rounded-full bg-[#C8102E]" aria-hidden="true" />
-            <span class="text-[#0D1B3E] text-sm font-semibold tracking-wide uppercase">¿Por qué elegirnos?</span>
-          </div>
+      <div class="max-w-7xl mx-auto px-6 w-full">
+        {/* Cabecera de Sección */}
+        <div class="mb-16 md:w-2/3">
           <h2
             id="benefits-heading"
-            class="text-4xl sm:text-5xl font-black text-[#0D1B3E] leading-tight mb-4"
+            class="font-display text-5xl sm:text-7xl text-[#0D1B3E] leading-none uppercase mb-6"
           >
-            Tu seguridad es nuestra
-            <br />
-            <span class="text-[#C8102E]">prioridad número uno</span>
+            NUESTRO COMPROMISO<br />
+            <span class="text-[#C8102E]">CON TU SEGURIDAD</span>
           </h2>
-          <p class="text-slate-500 text-lg max-w-2xl mx-auto">
-            Tres pilares diseñados para que viajes con total tranquilidad, sin importar el destino.
+          <p class="font-body text-slate-500 text-xl font-light leading-relaxed max-w-2xl">
+            Un diseño de cobertura inteligente que prioriza la acción rápida y la protección total, 
+            eliminando la burocracia cuando más lo necesitás.
           </p>
         </div>
 
-        {/* Benefits Cards */}
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {BENEFITS.map((benefit, idx) => (
-            <article
-              key={benefit.title}
-              class="group relative flex flex-col rounded-2xl border border-slate-200/80 bg-white p-8 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 overflow-hidden"
-            >
-              {/* Top color accent bar */}
-              <div
-                class="absolute top-0 left-0 right-0 h-1 rounded-t-2xl"
-                style={{ backgroundColor: benefit.color }}
-                aria-hidden="true"
-              />
+        {/* Grilla Bento Box Asimétrica */}
+        <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 lg:gap-8">
+          
+          {/* Tarjeta Principal: Cobertura Médica (Ocupa 2 columnas, 2 filas en pantallas medianas) */}
+          <div class="group md:col-span-2 md:row-span-2 bg-[#0D1B3E] rounded-3xl p-8 lg:p-12 shadow-xl hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
+            {/* Acento de fondo sutil */}
+            <div class="absolute -right-20 -top-20 w-[400px] h-[400px] bg-[#1a3a7a] rounded-full blur-3xl opacity-40 group-hover:opacity-60 transition-opacity duration-700 pointer-events-none"></div>
+            
+            <div class="relative z-10 mb-16">
+               <div class="w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mb-8 border border-white/10">
+                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                 </svg>
+               </div>
+               <h3 class="font-display text-5xl lg:text-6xl text-white uppercase leading-tight mb-6">
+                 Cobertura Médica<br />Integral
+               </h3>
+               <p class="font-body text-white/80 font-light text-xl max-w-md leading-relaxed">
+                 Asistencia total sin copago inicial. Gestionamos y cubrimos los gastos médicos en destino, priorizando tu salud por sobre los trámites burocráticos.
+               </p>
+            </div>
 
-              {/* Index badge */}
-              <span
-                class="absolute top-6 right-6 text-6xl font-black opacity-[0.04] select-none"
-                style={{ color: benefit.color }}
-                aria-hidden="true"
-              >
-                {String(idx + 1).padStart(2, "0")}
-              </span>
-
-              {/* Icon */}
-              <div
-                class="flex items-center justify-center w-14 h-14 rounded-xl mb-6 flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
-                style={{ backgroundColor: benefit.bgColor }}
-                aria-hidden="true"
-              >
-                <svg
-                  class="w-7 h-7"
-                  fill="none"
-                  stroke={benefit.color}
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" d={benefit.icon} />
-                </svg>
-              </div>
-
-              {/* Text */}
-              <h3 class="text-xl font-bold text-[#0D1B3E] mb-3 leading-tight">
-                {benefit.title}
-              </h3>
-              <p class="text-slate-500 text-sm leading-relaxed flex-grow mb-6">
-                {benefit.description}
-              </p>
-
-              {/* Stat */}
-              <div class="mt-auto pt-6 border-t border-slate-100">
-                <p
-                  class="text-3xl font-black"
-                  style={{ color: benefit.color }}
-                >
-                  {benefit.stat}
-                </p>
-                <p class="text-slate-400 text-xs font-medium mt-1">
-                  {benefit.statLabel}
-                </p>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        {/* Bottom CTA strip */}
-        <div class="mt-16 rounded-2xl bg-gradient-to-r from-[#0D1B3E] to-[#1a3a7a] p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div>
-            <p class="text-white font-bold text-xl mb-1">¿Necesitás asistencia ahora?</p>
-            <p class="text-white/60 text-sm">Nuestros agentes están disponibles las 24 horas del día, los 365 días del año.</p>
+            {/* Métricas gigantes estilo Bento */}
+            <div class="relative z-10 flex flex-wrap gap-10 lg:gap-20">
+               <div>
+                  <div class="font-display text-[5rem] lg:text-[7rem] text-[#C8102E] leading-none mb-2">60</div>
+                  <div class="font-heading text-white tracking-widest uppercase text-sm">Días de vigencia</div>
+               </div>
+               <div>
+                  <div class="font-display text-[5rem] lg:text-[7rem] text-[#C8102E] leading-none mb-2">100<span class="text-5xl lg:text-6xl ml-1 text-[#C8102E]/80">km</span></div>
+                  <div class="font-heading text-white tracking-widest uppercase text-sm">Distancia de cobertura</div>
+               </div>
+            </div>
           </div>
-          <a
-            href="tel:+5491150532300"
-            id="benefits-emergency-cta"
-            class="flex-shrink-0 flex items-center gap-3 bg-[#C8102E] hover:bg-[#a50d25] text-white font-bold px-8 py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg shadow-red-900/30 whitespace-nowrap"
-          >
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02L6.62 10.79z"/>
-            </svg>
-            54 9 11 5053-2300
-          </a>
+
+          {/* Tarjeta Secundaria 1: Reintegro de Medicamentos */}
+          <div class="group bg-slate-50 border border-slate-100 rounded-3xl p-8 shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+             <div>
+               <div class="w-14 h-14 bg-[#0D1B3E]/5 rounded-2xl flex items-center justify-center mb-6 text-[#0D1B3E] group-hover:bg-[#0D1B3E] group-hover:text-white transition-colors duration-300">
+                 <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                 </svg>
+               </div>
+               <h3 class="font-heading text-2xl text-[#0D1B3E] font-bold mb-3">Medicamentos</h3>
+               <p class="font-body text-slate-600 font-light text-base leading-relaxed mb-8">
+                 Reintegro garantizado y rápido para tus recetas de emergencia en el exterior.
+               </p>
+             </div>
+             <div>
+                <div class="font-display text-6xl text-[#0D1B3E] leading-none mb-2">30%</div>
+                <div class="font-heading text-slate-400 uppercase tracking-widest text-xs">Reintegro del gasto</div>
+             </div>
+          </div>
+
+          {/* Tarjeta Secundaria 2: Equipaje */}
+          <div class="group bg-slate-50 border border-slate-100 rounded-3xl p-8 shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+             <div>
+               <div class="w-14 h-14 bg-[#0D1B3E]/5 rounded-2xl flex items-center justify-center mb-6 text-[#0D1B3E] group-hover:bg-[#0D1B3E] group-hover:text-white transition-colors duration-300">
+                 <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                 </svg>
+               </div>
+               <h3 class="font-heading text-2xl text-[#0D1B3E] font-bold mb-3">Equipaje</h3>
+               <p class="font-body text-slate-600 font-light text-base leading-relaxed mb-8">
+                 Indemnización ágil por la pérdida total de tu equipaje despachado en aerolíneas.
+               </p>
+             </div>
+             <div>
+                <div class="font-display text-6xl text-[#0D1B3E] leading-none mb-2"><span class="text-4xl text-[#0D1B3E]/70 mr-1">USD</span>1.200</div>
+                <div class="font-heading text-slate-400 uppercase tracking-widest text-xs">Tope de indemnización</div>
+             </div>
+          </div>
+
         </div>
       </div>
     </section>

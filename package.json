@@ -38,6 +38,7 @@
     "@types/node": "20.19.0",
     "autoprefixer": "^10.4.14",
     "class-variance-authority": "0.7.1",
+    "dotenv": "^17.4.2",
     "drizzle-kit": "^0.31.10",
     "eslint": "9.32.0",
     "eslint-plugin-qwik": "^1.19.2",
@@ -59,8 +60,11 @@
   },
   "dependencies": {
     "@libsql/client": "latest",
+    "@vercel/blob": "^2.3.3",
+    "browser-image-compression": "^2.0.2",
     "cssnano": "^8.0.1",
-    "drizzle-orm": "^0.45.2"
+    "drizzle-orm": "^0.45.2",
+    "openai": "^6.37.0"
   },
   "nx": {}
 }

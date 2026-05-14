@@ -1,21 +1,62 @@
 import { component$ } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
+import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
 import { Navbar } from "~/components/landing/Navbar";
 import { Hero } from "~/components/landing/Hero";
 import { BenefitsGrid } from "~/components/landing/BenefitsGrid";
 import { CoverageSection } from "~/components/landing/CoverageSection";
 import { Footer } from "~/components/landing/Footer";
+import { WhatsAppButton } from "~/components/ui/whatsapp-button";
+import { Chatbot } from "~/components/ui/chatbot";
+import { SitePopup } from "~/components/ui/site-popup";
+import { getDb } from "~/db";
+import { siteSettings } from "~/db/schema";
+import { eq } from "drizzle-orm";
+
+export const useSiteSettings = routeLoader$(async (requestEvent) => {
+  const db = getDb(requestEvent.env);
+  const [settings] = await db
+    .select()
+    .from(siteSettings)
+    .where(eq(siteSettings.id, 1))
+    .limit(1);
+  return settings || null;
+});
 
 export default component$(() => {
+  const settings = useSiteSettings();
+
   return (
     <>
       <Navbar />
-      <main>
-        <Hero />
+      <main class="flex flex-col overflow-hidden">
+        <Hero 
+          title1={settings.value?.homeTitle1}
+          title2={settings.value?.homeTitle2}
+          subtitle={settings.value?.homeSubtitle}
+          whatsappNumber={settings.value?.whatsappNumber}
+        />
         <BenefitsGrid />
         <CoverageSection />
       </main>
       <Footer />
+      
+      <WhatsAppButton 
+        phone={settings.value?.whatsappNumber || undefined} 
+      />
+      
+      {settings.value?.aiEnabled !== false && (
+        <Chatbot avatarUrl={settings.value?.aiAvatarUrl || undefined} />
+      )}
+
+      {settings.value?.popupEnabled && (
+        <SitePopup
+          imageUrl={settings.value?.popupImageUrl}
+          title={settings.value?.popupTitle}
+          description={settings.value?.popupDescription}
+          ctaText={settings.value?.popupCtaText}
+          ctaLink={settings.value?.popupCtaLink}
+        />
+      )}
     </>
   );
 });

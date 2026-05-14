@@ -635,3 +635,61 @@ export const claimStatusHistoryRelations = relations(
     }),
   }),
 );
+
+// ---------------------------------------------------------------------------
+// 11. AI CHATBOT & SITE SETTINGS
+// ---------------------------------------------------------------------------
+
+export const siteSettings = sqliteTable("site_settings", {
+  id: integer("id").primaryKey(),
+  
+  // Home Content Settings
+  homeTitle1: text("home_title_1").notNull().default("VIAJAR CON"),
+  homeTitle2: text("home_title_2").notNull().default("RESPALDO REAL"),
+  homeSubtitle: text("home_subtitle").notNull().default("Tu asistencia, estés donde estés.\nEmergencias, médicos y equipaje — cubierto en todo momento."),
+
+  // AI Settings
+  aiEnabled: integer("ai_enabled", { mode: "boolean" }).notNull().default(true),
+  aiTone: text("ai_tone"),
+  aiInstructions: text("ai_instructions"),
+  aiKnowledge: text("ai_knowledge"),
+  aiInitialGreeting: text("ai_initial_greeting"),
+  aiCallToAction: text("ai_call_to_action"),
+  whatsappNumber: text("whatsapp_number").notNull().default("5491150532300"),
+  aiAvatarUrl: text("ai_avatar_url"),
+  
+  // Popup Settings
+  popupEnabled: integer("popup_enabled", { mode: "boolean" }).notNull().default(false),
+  popupImageUrl: text("popup_image_url"),
+  popupTitle: text("popup_title"),
+  popupDescription: text("popup_description"),
+  popupCtaText: text("popup_cta_text"),
+  popupCtaLink: text("popup_cta_link"),
+  
+  updatedAt: integer("updated_at", { mode: "timestamp" }),
+});
+
+export const chatSessions = sqliteTable("chat_sessions", {
+  id: text("id").primaryKey(),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+  lastActive: integer("last_active", { mode: "timestamp" }).notNull(),
+});
+
+export const chatMessages = sqliteTable("chat_messages", {
+  id: text("id").primaryKey(),
+  sessionId: text("session_id").references(() => chatSessions.id, { onDelete: "cascade" }).notNull(),
+  role: text("role", { enum: ["user", "assistant", "system"] }).notNull(),
+  content: text("content").notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+});
+
+export const chatSessionsRelations = relations(chatSessions, ({ many }) => ({
+  messages: many(chatMessages),
+}));
+
+export const chatMessagesRelations = relations(chatMessages, ({ one }) => ({
+  session: one(chatSessions, {
+    fields: [chatMessages.sessionId],
+    references: [chatSessions.id],
+  }),
+}));
