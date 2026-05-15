@@ -14,6 +14,7 @@ import { getDb } from "~/db";
 import { siteSettings } from "~/db/schema";
 import { eq } from "drizzle-orm";
 import { Contact } from "~/components/landing/Contact";
+import { BRAND_COLORS } from "~/constants/brand";
 
 export const useSendContactEmail = routeAction$(async (datos, { env, fail, request }) => {
   const token = (datos as any)['cf-turnstile-response'];
@@ -72,7 +73,7 @@ export const useSendContactEmail = routeAction$(async (datos, { env, fail, reque
                     <p><strong>Nombre:</strong> ${datos.nombre}</p>
                     <p><strong>Email del prospecto:</strong> ${datos.email}</p>
                     <p><strong>Mensaje:</strong></p>
-                    <blockquote style="background: #f9f9f9; padding: 15px; border-left: 5px solid #01254f;">
+                    <blockquote style="background: #f9f9f9; padding: 15px; border-left: 5px solid ${BRAND_COLORS.navy};">
                     ${datos.mensaje}
                     </blockquote>
                 `,

@@ -43,14 +43,14 @@ export default component$(() => {
       {/* Sidebar */}
       <aside
         class={[
-          "bg-[#0D1B3E] text-slate-300 flex flex-col shrink-0 shadow-xl z-50 transition-all duration-300 relative print:hidden",
+          "bg-brand-navy-dark text-slate-300 flex flex-col shrink-0 shadow-xl z-50 transition-all duration-300 relative print:hidden",
           isCollapsed.value ? "w-20" : "w-64"
         ]}
       >
         {/* Toggle Button */}
         <button
           onClick$={() => isCollapsed.value = !isCollapsed.value}
-          class="absolute -right-3 top-6 w-6 h-6 bg-[#0D1B3E] border border-[#1a3a7a] text-slate-300 rounded-full flex items-center justify-center hover:bg-[#1a3a7a] transition-colors z-50 shadow-md"
+          class="absolute -right-3 top-6 w-6 h-6 bg-brand-navy-dark border border-brand-navy-hover text-slate-300 rounded-full flex items-center justify-center hover:bg-brand-navy-hover transition-colors z-50 shadow-md"
           title={isCollapsed.value ? "Expandir" : "Colapsar"}
         >
           <svg
@@ -72,7 +72,7 @@ export default component$(() => {
               <img src={logoSrc} alt="Travixis" class="w-8 h-8 object-contain shrink-0" />
               <div class="flex flex-col leading-none">
                 <span class="text-white font-bold text-base tracking-tight uppercase">Travixis</span>
-                <span class="text-[#C8102E] text-[10px] font-medium tracking-widest uppercase">Admin</span>
+                <span class="text-brand-red text-[10px] font-medium tracking-widest uppercase">Admin</span>
               </div>
             </div>
           )}
@@ -117,7 +117,7 @@ export default component$(() => {
 
         <div class="p-4 border-t border-white/10 overflow-hidden">
           <div class={["flex items-center", isCollapsed.value ? "justify-center" : "gap-3 px-2"]}>
-            <div class="w-8 h-8 rounded-full bg-[#C8102E] flex shrink-0 items-center justify-center text-white font-bold text-xs">
+            <div class="w-8 h-8 rounded-full bg-brand-red flex shrink-0 items-center justify-center text-white font-bold text-xs">
               AD
             </div>
             {!isCollapsed.value && (

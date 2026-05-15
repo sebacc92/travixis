@@ -20,18 +20,18 @@ export const Hero = component$<HeroProps>(({ title1, title2, subtitle, whatsappN
           {/* Lado Izquierdo: Texto */}
           <div class="flex flex-col items-start text-left lg:pl-12">
             {/* Badge */}
-            <div class="inline-flex items-center gap-2 bg-[#0D1B3E]/5 border border-[#0D1B3E]/10 rounded-full px-4 py-2 mb-8">
-              <span class="w-2 h-2 rounded-full bg-[#C8102E] animate-pulse" aria-hidden="true" />
-              <span class="text-[#0D1B3E] font-heading text-sm font-semibold tracking-wide">Asistencia disponible 24/7</span>
+            <div class="inline-flex items-center gap-2 bg-brand-navy-dark/5 border border-brand-navy-dark/10 rounded-full px-4 py-2 mb-8">
+              <span class="w-2 h-2 rounded-full bg-brand-red animate-pulse" aria-hidden="true" />
+              <span class="text-brand-navy-dark font-heading text-sm font-semibold tracking-wide">Asistencia disponible 24/7</span>
             </div>
 
             {/* Título Principal */}
             <h1
               id="hero-heading"
-              class="font-display text-7xl sm:text-8xl lg:text-[110px] text-[#01254f] leading-[0.9] uppercase mb-6"
+              class="font-display text-7xl sm:text-8xl lg:text-[110px] text-brand-navy leading-[0.9] uppercase mb-6"
             >
               {title1 || "VIAJAR CON"}<br />
-              <span class="text-[#C8102E]">{title2 || "RESPALDO REAL"}</span>
+              <span class="text-brand-red">{title2 || "RESPALDO REAL"}</span>
             </h1>
 
             {/* Subtítulo */}
@@ -43,7 +43,7 @@ export const Hero = component$<HeroProps>(({ title1, title2, subtitle, whatsappN
                   return (
                     <>
                       {parts[0]}<br />
-                      <span class="font-normal text-[#01254f]/70">{parts.slice(1).join('\n')}</span>
+                      <span class="font-normal text-brand-navy/70">{parts.slice(1).join('\n')}</span>
                     </>
                   );
                 }
@@ -56,7 +56,7 @@ export const Hero = component$<HeroProps>(({ title1, title2, subtitle, whatsappN
               <a
                 href={`tel:+${whatsappNumber || '5491150532300'}`}
                 id="hero-emergency-cta"
-                class="group flex items-center gap-4 bg-[#C8102E]/95 backdrop-blur-md hover:bg-[#a50d25] text-white font-heading font-bold text-lg px-8 py-4 rounded-2xl shadow-xl shadow-[#C8102E]/30 transition-all duration-300 hover:scale-105 hover:shadow-[#C8102E]/50"
+                class="group flex items-center gap-4 bg-brand-red/95 backdrop-blur-md hover:bg-brand-red-hover text-white font-heading font-bold text-lg px-8 py-4 rounded-2xl shadow-xl shadow-brand-red/30 transition-all duration-300 hover:scale-105 hover:shadow-brand-red/50"
                 aria-label="Llamar al número de emergencias"
               >
                 <span class="flex items-center justify-center w-12 h-12 bg-white/20 rounded-xl group-hover:bg-white/30 transition-colors">
@@ -77,7 +77,7 @@ export const Hero = component$<HeroProps>(({ title1, title2, subtitle, whatsappN
                 { label: "Respuesta en minutos", icon: "⚡" },
                 { label: "Sin copago inicial", icon: "🏥" },
               ].map((item) => (
-                <div key={item.label} class="flex items-center gap-2 text-[#01254f]/70">
+                <div key={item.label} class="flex items-center gap-2 text-brand-navy/70">
                   <span class="text-2xl">{item.icon}</span>
                   <span class="font-body text-sm font-semibold">{item.label}</span>
                 </div>
@@ -95,15 +95,15 @@ export const Hero = component$<HeroProps>(({ title1, title2, subtitle, whatsappN
             />
             
             {/* Badge flotante sobre la imagen */}
-            <div class="absolute bottom-12 left-0 lg:left-10 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl shadow-[#01254f]/10 border border-slate-100 transition-all duration-300 hover:-translate-y-2 max-w-xs sm:max-w-sm">
+            <div class="absolute bottom-12 left-0 lg:left-10 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-2xl shadow-brand-navy/10 border border-slate-100 transition-all duration-300 hover:-translate-y-2 max-w-xs sm:max-w-sm">
               <div class="flex items-center gap-5">
-                <div class="flex-shrink-0 w-14 h-14 bg-[#01254f] rounded-full flex items-center justify-center">
+                <div class="flex-shrink-0 w-14 h-14 bg-brand-navy rounded-full flex items-center justify-center">
                   <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                 </div>
                 <div>
-                  <p class="font-heading text-lg text-[#01254f] font-bold leading-tight">Cobertura Global</p>
+                  <p class="font-heading text-lg text-brand-navy font-bold leading-tight">Cobertura Global</p>
                   <p class="font-body text-sm text-slate-500 mt-1">Protección integral en más de 150 países.</p>
                 </div>
               </div>

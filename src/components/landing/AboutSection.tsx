@@ -12,7 +12,7 @@ export const AboutSection = component$(() => {
             <div class="absolute -left-20 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-slate-100 to-transparent rounded-full opacity-80 pointer-events-none"></div>
             
             {/* Acento Rojo Lateral */}
-            <div class="absolute left-0 top-1/3 w-32 h-32 bg-[#C8102E] rounded-full -translate-x-1/2 animate-pulse"></div>
+            <div class="absolute left-0 top-1/3 w-32 h-32 bg-brand-red rounded-full -translate-x-1/2 animate-pulse"></div>
             
             {/* Imagen Principal Circular */}
             <div class="absolute top-10 left-10 w-[420px] h-[420px] rounded-full overflow-hidden border-8 border-white shadow-2xl z-20">
@@ -36,8 +36,8 @@ export const AboutSection = component$(() => {
           {/* Lado Derecho: Texto */}
           <div class="flex flex-col justify-center max-w-2xl mx-auto lg:mx-0 py-10 lg:py-0">
             <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl uppercase mb-10 leading-tight tracking-tight">
-              <span class="text-[#C8102E] font-bold">VIAJAR SEGURO</span><br/>
-              <span class="text-[#01254f] font-bold">ES PARTE DEL VIAJE</span>
+              <span class="text-brand-red font-bold">VIAJAR SEGURO</span><br/>
+              <span class="text-brand-navy font-bold">ES PARTE DEL VIAJE</span>
             </h2>
             
             <div class="space-y-6 text-slate-600 font-body text-lg sm:text-xl font-light leading-relaxed mb-12">
@@ -49,8 +49,8 @@ export const AboutSection = component$(() => {
               </p>
             </div>
             
-            <div class="mb-12 pl-6 sm:pl-8 border-l-4 border-[#C8102E]">
-              <p class="font-display text-2xl sm:text-3xl text-[#C8102E] italic font-medium leading-[1.3]">
+            <div class="mb-12 pl-6 sm:pl-8 border-l-4 border-brand-red">
+              <p class="font-display text-2xl sm:text-3xl text-brand-red italic font-medium leading-[1.3]">
                 Ahora vas a poder viajar por<br/>
                 todo el país y los países<br/>
                 vecinos sin necesidad de avisar<br/>
@@ -59,9 +59,9 @@ export const AboutSection = component$(() => {
             </div>
             
             <div class="mt-2">
-              <p class="font-body text-xl sm:text-2xl text-[#01254f] font-medium leading-snug">
+              <p class="font-body text-xl sm:text-2xl text-brand-navy font-medium leading-snug">
                 En Argentina y países limítrofes<br/>
-                <span class="text-[#C8102E]">confiá tu salud a una empresa de salud.</span>
+                <span class="text-brand-red">confiá tu salud a una empresa de salud.</span>
               </p>
             </div>
           </div>

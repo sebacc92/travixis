@@ -71,13 +71,13 @@ export const CoverageSection = component$(() => {
 
         {/* Header */}
         <div class="text-center mb-16">
-          <div class="inline-flex items-center gap-2 bg-[#C8102E]/10 rounded-full px-4 py-2 mb-4 hover:scale-105 transition-transform duration-300">
-            <span class="w-2 h-2 rounded-full bg-[#C8102E]" aria-hidden="true" />
-            <span class="text-[#C8102E] text-sm font-semibold tracking-wide uppercase">Coberturas incluidas</span>
+          <div class="inline-flex items-center gap-2 bg-brand-red/10 rounded-full px-4 py-2 mb-4 hover:scale-105 transition-transform duration-300">
+            <span class="w-2 h-2 rounded-full bg-brand-red" aria-hidden="true" />
+            <span class="text-brand-red text-sm font-semibold tracking-wide uppercase">Coberturas incluidas</span>
           </div>
           <h2
             id="coverage-heading"
-            class="text-4xl sm:text-5xl font-black text-[#0D1B3E] leading-tight mb-4"
+            class="text-4xl sm:text-5xl font-black text-brand-navy-dark leading-tight mb-4"
           >
             ¿Qué cubre tu plan?
           </h2>
@@ -95,7 +95,7 @@ export const CoverageSection = component$(() => {
             >
               {/* Index + icon */}
               <div class="flex-shrink-0 flex flex-row sm:flex-col items-center sm:items-center gap-4 sm:gap-2">
-                <div class="flex items-center justify-center w-14 h-14 rounded-xl bg-[#0D1B3E] group-hover:bg-[#C8102E] group-hover:scale-110 transition-all duration-500">
+                <div class="flex items-center justify-center w-14 h-14 rounded-xl bg-brand-navy-dark group-hover:bg-brand-red group-hover:scale-110 transition-all duration-500">
                   <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d={cov.icon} />
                   </svg>
@@ -106,8 +106,8 @@ export const CoverageSection = component$(() => {
               {/* Content */}
               <div class="flex-1 min-w-0">
                 <div class="flex flex-wrap items-start gap-3 mb-2">
-                  <h3 class="text-xl font-bold text-[#0D1B3E]">{cov.title}</h3>
-                  <span class="inline-block bg-[#C8102E]/10 text-[#C8102E] text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">
+                  <h3 class="text-xl font-bold text-brand-navy-dark">{cov.title}</h3>
+                  <span class="inline-block bg-brand-red/10 text-brand-red text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">
                     {cov.highlight}
                   </span>
                 </div>
@@ -120,7 +120,7 @@ export const CoverageSection = component$(() => {
                   <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
                     {cov.bullets.map((bullet, i) => (
                       <li key={i} class="flex items-start gap-2">
-                        <svg class="w-5 h-5 text-[#C8102E] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5 text-brand-red flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                         </svg>
                         <span class="text-slate-700 text-sm font-medium">{bullet}</span>
@@ -136,28 +136,28 @@ export const CoverageSection = component$(() => {
         {/* Conditions notes */}
         <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Condición Clave */}
-          <div class="flex items-start gap-4 bg-slate-50 hover:bg-[#0D1B3E]/5 transition-colors duration-300 rounded-2xl p-6 border border-slate-100 group">
-            <div class="w-10 h-10 rounded-full bg-[#0D1B3E]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#0D1B3E] transition-colors duration-300">
-              <span class="text-[#0D1B3E] font-bold group-hover:text-white">*</span>
+          <div class="flex items-start gap-4 bg-slate-50 hover:bg-brand-navy-dark/5 transition-colors duration-300 rounded-2xl p-6 border border-slate-100 group">
+            <div class="w-10 h-10 rounded-full bg-brand-navy-dark/10 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-navy-dark transition-colors duration-300">
+              <span class="text-brand-navy-dark font-bold group-hover:text-white">*</span>
             </div>
             <div>
-              <h4 class="font-bold text-[#0D1B3E] mb-2 uppercase text-sm tracking-wide">Condición clave:</h4>
+              <h4 class="font-bold text-brand-navy-dark mb-2 uppercase text-sm tracking-wide">Condición clave:</h4>
               <p class="text-slate-600 text-sm leading-relaxed">
-                Cubre únicamente cuando el evento ocurre a <strong class="text-[#0D1B3E]">más de 100 km</strong> del domicilio habitual.
-                Límite de <strong class="text-[#0D1B3E]">60 días por viaje</strong>.
+                Cubre únicamente cuando el evento ocurre a <strong class="text-brand-navy-dark">más de 100 km</strong> del domicilio habitual.
+                Límite de <strong class="text-brand-navy-dark">60 días por viaje</strong>.
               </p>
             </div>
           </div>
 
           {/* Funcionamiento */}
-          <div class="flex items-start gap-4 bg-slate-50 hover:bg-[#C8102E]/5 transition-colors duration-300 rounded-2xl p-6 border border-slate-100 group">
-            <div class="w-10 h-10 rounded-full bg-[#C8102E]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#C8102E] transition-colors duration-300">
-              <span class="text-[#C8102E] font-bold group-hover:text-white">*</span>
+          <div class="flex items-start gap-4 bg-slate-50 hover:bg-brand-red/5 transition-colors duration-300 rounded-2xl p-6 border border-slate-100 group">
+            <div class="w-10 h-10 rounded-full bg-brand-red/10 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-red transition-colors duration-300">
+              <span class="text-brand-red font-bold group-hover:text-white">*</span>
             </div>
             <div>
-              <h4 class="font-bold text-[#C8102E] mb-2 uppercase text-sm tracking-wide">Funcionamiento:</h4>
+              <h4 class="font-bold text-brand-red mb-2 uppercase text-sm tracking-wide">Funcionamiento:</h4>
               <p class="text-slate-600 text-sm leading-relaxed">
-                No se paga nada en el momento. El socio debe <strong class="text-[#0D1B3E]">comunicarse para la atención inmediata</strong>, y se deriva según la gravedad del caso.
+                No se paga nada en el momento. El socio debe <strong class="text-brand-navy-dark">comunicarse para la atención inmediata</strong>, y se deriva según la gravedad del caso.
               </p>
             </div>
           </div>

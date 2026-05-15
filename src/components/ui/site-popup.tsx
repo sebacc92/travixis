@@ -41,7 +41,7 @@ export const SitePopup = component$<SitePopupProps>((props) => {
 
         <div class="p-8 text-center">
           {props.title && (
-            <h3 class="font-display text-4xl text-[#0D1B3E] uppercase leading-none mb-4">
+            <h3 class="font-display text-4xl text-brand-navy-dark uppercase leading-none mb-4">
               {props.title}
             </h3>
           )}
@@ -53,7 +53,7 @@ export const SitePopup = component$<SitePopupProps>((props) => {
           {props.ctaText && props.ctaLink && (
             <a
               href={props.ctaLink}
-              class="inline-block bg-[#C8102E] text-white px-8 py-3 rounded-full font-bold uppercase tracking-widest hover:bg-[#a00c24] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
+              class="inline-block bg-brand-red text-white px-8 py-3 rounded-full font-bold uppercase tracking-widest hover:bg-brand-red-dark transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
             >
               {props.ctaText}
             </a>
