@@ -1,6 +1,6 @@
 import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import { Form } from "@builder.io/qwik-city";
-import { useSendContactEmail } from "~/routes/index";
+import { useSendContactEmail } from "~/routes/actions/contact";
 import { SectionContainer } from "./SectionContainer";
 
 // Definimos la interfaz para window.turnstile para TypeScript
