@@ -4,6 +4,7 @@ import logoSrc from "~/media/logo2.svg";
 import { CONTACT } from "~/constants/contact";
 import { NAV_LINKS } from "~/data/nav";
 import { SectionContainer } from "./SectionContainer";
+import { PhoneIcon } from "./PhoneIcon";
 
 export const Navbar = component$(() => {
   const menuOpen = useSignal(false);
@@ -40,9 +41,7 @@ export const Navbar = component$(() => {
               id="navbar-emergency-cta"
               class="flex items-center gap-2 bg-brand-red hover:bg-brand-red-hover text-white text-base font-bold px-5 py-2.5 rounded-lg transition-all duration-200 hover:scale-105 shadow-lg shadow-red-900/30"
             >
-              <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02L6.62 10.79z" />
-              </svg>
+              <PhoneIcon />
               Emergencias
             </a>
           </div>
@@ -82,9 +81,7 @@ export const Navbar = component$(() => {
               href={CONTACT.phoneTel}
               class="flex items-center justify-center gap-2 bg-brand-red text-white text-base font-bold px-4 py-3.5 rounded-lg"
             >
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02L6.62 10.79z" />
-              </svg>
+              <PhoneIcon class="w-4 h-4" />
               Llamar a Emergencias
             </a>
           </nav>
