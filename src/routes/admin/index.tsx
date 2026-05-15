@@ -5,8 +5,15 @@ import { siteSettings } from '~/db/schema';
 import { eq } from 'drizzle-orm';
 import { getSiteSettingsWithDefaults } from '~/server/site-settings';
 import { LuImage } from '@qwikest/icons/lucide';
-import { put } from '@vercel/blob';
-import imageCompression from 'browser-image-compression';
+import { uploadImageToBlob } from '~/server/blob-upload';
+import { AdminTabs } from '~/components/admin/AdminTabs';
+import { AdminFlash } from '~/components/admin/AdminFlash';
+import { AdminSectionHeader } from '~/components/admin/AdminSectionHeader';
+import { AdminSaveButton } from '~/components/admin/AdminSaveButton';
+import {
+  compressFormImages,
+  useAdminImageUpload,
+} from '~/components/admin/use-admin-image-upload';
 
 export const useWebSettingsLoader = routeLoader$(async (requestEvent) => {
   const db = getDb(requestEvent.env);
@@ -23,12 +30,11 @@ export const useUpdateWebSettingsAction = routeAction$(
       // Handle Popup Image Upload
       if (data.popupImage && typeof data.popupImage === 'object' && (data.popupImage as Blob).size > 0) {
         const file = data.popupImage as File;
-        const fileName = `popup-${Date.now()}.webp`;
-        const { url } = await put(fileName, file, {
-          access: 'public',
-          token: requestEvent.env.get('BLOB_READ_WRITE_TOKEN'),
-        });
-        uploadedPopupUrl = url;
+        uploadedPopupUrl = await uploadImageToBlob(
+          file,
+          `popup-${Date.now()}.webp`,
+          requestEvent.env.get('BLOB_READ_WRITE_TOKEN'),
+        );
       }
 
       await db
@@ -76,37 +82,23 @@ export default component$(() => {
   const settings = useWebSettingsLoader();
   const action = useUpdateWebSettingsAction();
   const activeTab = useSignal<'hero' | 'popup'>('hero');
-  const isCompressing = useSignal(false);
-
   const s = settings.value;
 
-  const popupUrl = useSignal(s.popupImageUrl || '');
-  const previewPopupUrl = useSignal<string | null>(null);
-
-  const handlePopupChange = $((event: Event) => {
-    const element = event.target as HTMLInputElement;
-    if (!element.files || element.files.length === 0) return;
-    const file = element.files[0];
-    previewPopupUrl.value = URL.createObjectURL(file);
-    popupUrl.value = '';
-  });
+  const {
+    storedUrl: popupUrl,
+    previewUrl: previewPopupUrl,
+    isCompressing,
+    onFileChange: handlePopupChange,
+  } = useAdminImageUpload(s.popupImageUrl || '');
 
   const handleSubmit = $(async (e: Event, currentTarget: HTMLFormElement) => {
     if (isCompressing.value || action.isRunning) return;
     isCompressing.value = true;
     try {
       const formData = new FormData(currentTarget);
-      const popupFile = formData.get('popupImage') as File | null;
-      if (popupFile && popupFile.size > 0 && popupFile.name) {
-        const options = {
-          maxWidthOrHeight: 1200,
-          useWebWorker: true,
-          fileType: 'image/webp',
-          initialQuality: 0.8,
-        };
-        const compressedBlob = await imageCompression(popupFile, options);
-        formData.set('popupImage', new File([compressedBlob], `popup.webp`, { type: 'image/webp' }));
-      }
+      await compressFormImages(formData, [
+        { fieldName: 'popupImage', maxWidthOrHeight: 1200, outputFileName: 'popup.webp' },
+      ]);
       await action.submit(formData);
     } catch (error) {
       console.error('Error al comprimir imagen:', error);
@@ -125,45 +117,31 @@ export default component$(() => {
           </p>
         </div>
 
-        <div class="flex gap-1 border-b border-slate-200" role="tablist">
-          <button
-            type="button"
-            class={[
-              'px-4 py-3 text-xs font-bold uppercase tracking-widest border-b-2 -mb-px transition-colors',
-              activeTab.value === 'hero' ? 'border-brand-navy-dark text-brand-navy-dark' : 'border-transparent text-slate-500 hover:text-slate-800',
-            ]}
-            onClick$={() => activeTab.value = 'hero'}
-          >
-            Portada (Hero)
-          </button>
-          <button
-            type="button"
-            class={[
-              'px-4 py-3 text-xs font-bold uppercase tracking-widest border-b-2 -mb-px transition-colors',
-              activeTab.value === 'popup' ? 'border-brand-red text-brand-red' : 'border-transparent text-slate-500 hover:text-slate-800',
-            ]}
-            onClick$={() => activeTab.value = 'popup'}
-          >
-            Popup Promocional
-          </button>
-        </div>
+        <AdminTabs
+          tabs={[
+            { id: 'hero', label: 'Portada (Hero)' },
+            { id: 'popup', label: 'Popup Promocional', activeClass: 'border-brand-red text-brand-red' },
+          ]}
+          activeId={activeTab.value}
+          onSelect$={$((id) => {
+            activeTab.value = id as 'hero' | 'popup';
+          })}
+        />
       </div>
 
       <Form action={action} class="space-y-8" preventdefault:submit onSubmit$={handleSubmit}>
         
-        {action.value?.success && (
-           <div class="bg-green-50 text-green-700 px-4 py-3 rounded-lg text-sm font-medium">✅ Contenido guardado correctamente.</div>
-        )}
-        {action.value?.failed && (
-           <div class="bg-red-50 text-red-700 px-4 py-3 rounded-lg text-sm font-medium">❌ {action.value.message}</div>
-        )}
+        <AdminFlash
+          success={action.value?.success}
+          failed={action.value?.failed}
+          message={action.value?.message}
+          successText="Contenido guardado correctamente."
+        />
 
         {/* HERO TAB */}
         <div class={['animate-in fade-in space-y-6', activeTab.value === 'hero' ? 'block' : 'hidden']}>
           <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="bg-brand-navy-dark px-8 py-5">
-              <h2 class="text-xl font-display text-white uppercase tracking-wide">Textos Principales</h2>
-            </div>
+            <AdminSectionHeader title="Textos Principales" variant="navy" />
 
             <div class="p-8 space-y-6">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -189,13 +167,12 @@ export default component$(() => {
         <div class={['animate-in fade-in space-y-6', activeTab.value === 'popup' ? 'block' : 'hidden']}>
            <input type="hidden" name="popupImageUrl" value={popupUrl.value} />
            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="bg-brand-red px-8 py-5 flex items-center justify-between">
-              <h2 class="text-xl font-display text-white uppercase tracking-wide">Popup Promocional</h2>
+            <AdminSectionHeader title="Popup Promocional" variant="red">
               <div class="flex items-center gap-3 bg-white/10 px-4 py-2 rounded-lg border border-white/20">
                 <input type="checkbox" id="popupEnabled" name="popupEnabled" checked={s.popupEnabled ?? false} class="w-4 h-4" />
                 <label for="popupEnabled" class="text-xs font-bold text-white uppercase cursor-pointer">Habilitar Popup</label>
               </div>
-            </div>
+            </AdminSectionHeader>
 
             <div class="p-8 space-y-6">
               <div class="space-y-2">
@@ -237,15 +214,7 @@ export default component$(() => {
           </div>
         </div>
 
-        <div class="flex justify-end pt-4">
-          <button
-            type="submit"
-            disabled={action.isRunning || isCompressing.value}
-            class="bg-brand-navy-dark text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-brand-navy-hover transition disabled:opacity-50"
-          >
-            {action.isRunning || isCompressing.value ? 'Guardando...' : 'Guardar Todos los Cambios'}
-          </button>
-        </div>
+        <AdminSaveButton isRunning={action.isRunning} isCompressing={isCompressing.value} />
       </Form>
     </div>
   );
