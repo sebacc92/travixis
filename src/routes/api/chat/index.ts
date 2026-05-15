@@ -1,7 +1,6 @@
 import { type RequestHandler } from '@builder.io/qwik-city';
 import { getDb } from '~/db';
 import { chatSessions, chatMessages } from '~/db/schema';
-import { eq } from 'drizzle-orm';
 import OpenAI from 'openai';
 import { buildAiSystemPrompt, getSiteSettings } from '~/server/site-settings';
 
