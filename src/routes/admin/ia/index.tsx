@@ -2,23 +2,12 @@ import { component$, useSignal, $ } from '@builder.io/qwik';
 import { routeLoader$, routeAction$, Form, z, zod$, type DocumentHead } from '@builder.io/qwik-city';
 import { siteSettings, chatSessions, chatMessages } from '~/db/schema';
 import { eq, desc, count } from 'drizzle-orm';
+import { CONTACT } from '~/constants/contact';
+import { getOrCreateSiteSettings } from '~/server/site-settings';
 import { LuImage, LuTrash2 } from '@qwikest/icons/lucide';
 import { put } from '@vercel/blob';
 import imageCompression from 'browser-image-compression';
 import { getDb } from '~/db';
-
-const DEFAULT_SETTINGS = {
-  id: 1,
-  aiEnabled: true,
-  aiTone: 'Amigable, profesional, transmitiendo seguridad y confianza',
-  aiInstructions: '1. TRATO NEUTRO Y RESPETUOSO.\n2. Si hay una emergencia médica real, diles inmediatamente que contacten a la Central Operativa vía WhatsApp.',
-  aiKnowledge: '- Identidad: Somos Travixis Travel Care. Proveemos asistencia integral al viajero con respuesta inmediata.\n- Cobertura: Válida hasta 60 días continuos por viaje.\n- Emergencias: > 100km de domicilio.',
-  aiInitialGreeting: 'Hola! Soy el Asistente de Travixis, ¿en qué te puedo ayudar hoy?',
-  aiCallToAction: 'Para emitir tu póliza o en caso de emergencia, escribinos urgente a nuestro WhatsApp:',
-  whatsappNumber: '5491150532300',
-  aiAvatarUrl: null,
-  updatedAt: null,
-};
 
 export const useChatSessions = routeLoader$(async (requestEvent) => {
   const db = getDb(requestEvent.env);
@@ -53,19 +42,9 @@ export const useDeleteChatAction = routeAction$(async (data, requestEvent) => {
   }
 });
 
-export const useSettingsLoader = routeLoader$(async (requestEvent) => {
+export const useAiSettingsLoader = routeLoader$(async (requestEvent) => {
   const db = getDb(requestEvent.env);
-  const [settings] = await db.select().from(siteSettings).where(eq(siteSettings.id, 1)).limit(1);
-
-  if (!settings) {
-    try {
-      await db.insert(siteSettings).values(DEFAULT_SETTINGS);
-      return DEFAULT_SETTINGS;
-    } catch {
-      return DEFAULT_SETTINGS;
-    }
-  }
-  return settings;
+  return getOrCreateSiteSettings(db);
 });
 
 export const useUpdateAiSettingsAction = routeAction$(
@@ -95,7 +74,7 @@ export const useUpdateAiSettingsAction = routeAction$(
           aiKnowledge: data.aiKnowledge || null,
           aiInitialGreeting: data.aiInitialGreeting || null,
           aiCallToAction: data.aiCallToAction || null,
-          whatsappNumber: data.whatsappNumber || '5491150532300',
+          whatsappNumber: data.whatsappNumber || CONTACT.phoneE164,
           aiAvatarUrl: uploadedAvatarUrl,
 
           updatedAt: new Date(),
@@ -124,7 +103,7 @@ export const useUpdateAiSettingsAction = routeAction$(
 export default component$(() => {
   const sessionsLoader = useChatSessions();
   const deleteAction = useDeleteChatAction();
-  const settings = useSettingsLoader();
+  const settings = useAiSettingsLoader();
   const action = useUpdateAiSettingsAction();
 
   const activeTab = useSignal<'audit' | 'config'>('audit');

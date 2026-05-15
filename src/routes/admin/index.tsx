@@ -3,33 +3,14 @@ import { routeLoader$, routeAction$, Form, z, zod$, type DocumentHead } from '@b
 import { getDb } from '~/db';
 import { siteSettings } from '~/db/schema';
 import { eq } from 'drizzle-orm';
+import { getSiteSettingsWithDefaults } from '~/server/site-settings';
 import { LuImage } from '@qwikest/icons/lucide';
 import { put } from '@vercel/blob';
 import imageCompression from 'browser-image-compression';
 
-const DEFAULT_SETTINGS = {
-  id: 1,
-  homeTitle1: 'VIAJAR CON',
-  homeTitle2: 'RESPALDO REAL',
-  homeSubtitle: 'Tu asistencia, estés donde estés.\nEmergencias, médicos y equipaje — cubierto en todo momento.',
-  popupEnabled: false,
-  popupImageUrl: null,
-  popupTitle: 'Viaja Seguro',
-  popupDescription: 'Aprovecha nuestras coberturas integrales sin deducibles.',
-  popupCtaText: 'Cotizar Ahora',
-  popupCtaLink: 'https://wa.me/5491150532300',
-  updatedAt: null,
-};
-
-export const useSettingsLoader = routeLoader$(async (requestEvent) => {
+export const useWebSettingsLoader = routeLoader$(async (requestEvent) => {
   const db = getDb(requestEvent.env);
-  const [settings] = await db.select().from(siteSettings).where(eq(siteSettings.id, 1)).limit(1);
-
-  if (!settings) {
-    // Only returning default if no settings exist, though they usually do
-    return DEFAULT_SETTINGS;
-  }
-  return settings;
+  return getSiteSettingsWithDefaults(db);
 });
 
 export const useUpdateWebSettingsAction = routeAction$(
@@ -92,7 +73,7 @@ export const useUpdateWebSettingsAction = routeAction$(
 );
 
 export default component$(() => {
-  const settings = useSettingsLoader();
+  const settings = useWebSettingsLoader();
   const action = useUpdateWebSettingsAction();
   const activeTab = useSignal<'hero' | 'popup'>('hero');
   const isCompressing = useSignal(false);
