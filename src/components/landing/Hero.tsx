@@ -2,6 +2,8 @@ import { component$ } from "@builder.io/qwik";
 import { CONTACT } from "~/constants/contact";
 import { TRUST_BADGES } from "~/data/trust-badges";
 import { SectionContainer } from "./SectionContainer";
+import { SectionBadge } from "./SectionBadge";
+import { PhoneIcon } from "./PhoneIcon";
 
 interface HeroProps {
   title1?: string;
@@ -23,10 +25,7 @@ export const Hero = component$<HeroProps>(({ title1, title2, subtitle, whatsappN
           {/* Lado Izquierdo: Texto */}
           <div class="flex flex-col items-start text-left lg:pl-12">
             {/* Badge */}
-            <div class="inline-flex items-center gap-2 bg-brand-navy-dark/5 border border-brand-navy-dark/10 rounded-full px-4 py-2 mb-8">
-              <span class="w-2 h-2 rounded-full bg-brand-red animate-pulse" aria-hidden="true" />
-              <span class="text-brand-navy-dark font-heading text-sm font-semibold tracking-wide">Asistencia disponible 24/7</span>
-            </div>
+            <SectionBadge label="Asistencia disponible 24/7" variant="navy" class="mb-8" />
 
             {/* Título Principal */}
             <h1
@@ -63,9 +62,7 @@ export const Hero = component$<HeroProps>(({ title1, title2, subtitle, whatsappN
                 aria-label="Llamar al número de emergencias"
               >
                 <span class="flex items-center justify-center w-12 h-12 bg-white/20 rounded-xl group-hover:bg-white/30 transition-colors">
-                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02L6.62 10.79z" />
-                  </svg>
+                  <PhoneIcon class="w-6 h-6" />
                 </span>
                 <div class="text-left">
                   <div class="text-sm text-white/90 font-normal leading-none mb-1">Llamar a Emergencias</div>

@@ -1,4 +1,6 @@
 import { component$, useStore, $, useVisibleTask$, useSignal } from '@builder.io/qwik';
+import { ChatMessage } from './ChatMessage';
+import { ChatTypingIndicator } from './ChatTypingIndicator';
 
 interface Message {
   role: 'user' | 'assistant' | 'system';
@@ -156,32 +158,10 @@ export const Chatbot = component$((props: { avatarUrl?: string }) => {
             class="flex-1 p-4 overflow-y-auto space-y-4 flex flex-col bg-slate-50/50"
           >
             {state.messages.map((msg, i) => (
-              <div
-                key={i}
-                class={["flex w-full", msg.role === 'user' ? "justify-end" : "justify-start"]}
-              >
-                <div
-                  class={[
-                    "max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-sm leading-relaxed",
-                    msg.role === 'user'
-                      ? "bg-brand-navy-dark text-white rounded-br-none"
-                      : "bg-white border border-slate-200 text-slate-800 rounded-bl-none"
-                  ]}
-                >
-                  {msg.content}
-                </div>
-              </div>
+              <ChatMessage key={i} role={msg.role} content={msg.content} />
             ))}
 
-            {state.isLoading && (
-              <div class="flex justify-start">
-                <div class="bg-white border border-slate-200 text-slate-400 rounded-2xl rounded-bl-none px-4 py-3 text-sm shadow-sm flex items-center gap-1.5">
-                  <div class="w-1.5 h-1.5 bg-brand-red rounded-full animate-bounce"></div>
-                  <div class="w-1.5 h-1.5 bg-brand-red rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                  <div class="w-1.5 h-1.5 bg-brand-red rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                </div>
-              </div>
-            )}
+            {state.isLoading && <ChatTypingIndicator />}
           </div>
 
           {/* Input Area */}

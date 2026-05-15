@@ -1,5 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import { SectionContainer } from "./SectionContainer";
+import { BentoSecondaryCard } from "./BentoSecondaryCard";
 
 export const BenefitsGrid = component$(() => {
   return (
@@ -59,43 +60,29 @@ export const BenefitsGrid = component$(() => {
             </div>
           </div>
 
-          {/* Tarjeta Secundaria 1: Reintegro de Medicamentos */}
-          <div class="group bg-white border border-slate-100 rounded-3xl p-8 shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-500 flex flex-col justify-between">
-             <div>
-               <div class="w-14 h-14 bg-brand-navy-dark/5 rounded-2xl flex items-center justify-center mb-6 text-brand-navy-dark group-hover:bg-brand-red group-hover:text-white transition-colors duration-500">
-                 <svg class="w-7 h-7 group-hover:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                 </svg>
-               </div>
-               <h3 class="font-heading text-2xl text-brand-navy-dark font-bold mb-3 group-hover:text-brand-red transition-colors duration-300">Medicamentos</h3>
-               <p class="font-body text-slate-600 font-light text-base leading-relaxed mb-8">
-                 Reintegro garantizado y rápido para tus recetas de emergencia en el exterior.
-               </p>
-             </div>
-             <div>
-                <div class="font-display text-6xl text-brand-navy-dark leading-none mb-2 group-hover:text-brand-red transition-colors duration-300">30%</div>
-                <div class="font-heading text-slate-400 uppercase tracking-widest text-xs">Reintegro del gasto</div>
-             </div>
-          </div>
+          <BentoSecondaryCard
+            iconPath="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+            title="Medicamentos"
+            description="Reintegro garantizado y rápido para tus recetas de emergencia en el exterior."
+          >
+            <div>
+              <div class="font-display text-6xl text-brand-navy-dark leading-none mb-2 group-hover:text-brand-red transition-colors duration-300">30%</div>
+              <div class="font-heading text-slate-400 uppercase tracking-widest text-xs">Reintegro del gasto</div>
+            </div>
+          </BentoSecondaryCard>
 
-          {/* Tarjeta Secundaria 2: Equipaje */}
-          <div class="group bg-white border border-slate-100 rounded-3xl p-8 shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-500 flex flex-col justify-between">
-             <div>
-               <div class="w-14 h-14 bg-brand-navy-dark/5 rounded-2xl flex items-center justify-center mb-6 text-brand-navy-dark group-hover:bg-brand-red group-hover:text-white transition-colors duration-500">
-                 <svg class="w-7 h-7 group-hover:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                 </svg>
-               </div>
-               <h3 class="font-heading text-2xl text-brand-navy-dark font-bold mb-3 group-hover:text-brand-red transition-colors duration-300">Equipaje</h3>
-               <p class="font-body text-slate-600 font-light text-base leading-relaxed mb-8">
-                 Indemnización ágil por la pérdida total de tu equipaje despachado en aerolíneas.
-               </p>
-             </div>
-             <div>
-                <div class="font-display text-6xl text-brand-navy-dark leading-none mb-2 group-hover:text-brand-red transition-colors duration-300"><span class="text-4xl text-brand-navy-dark/70 mr-1 group-hover:text-brand-red/70 transition-colors duration-300">USD</span>1.200</div>
-                <div class="font-heading text-slate-400 uppercase tracking-widest text-xs">Tope de indemnización</div>
-             </div>
-          </div>
+          <BentoSecondaryCard
+            iconPath="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+            title="Equipaje"
+            description="Indemnización ágil por la pérdida total de tu equipaje despachado en aerolíneas."
+          >
+            <div>
+              <div class="font-display text-6xl text-brand-navy-dark leading-none mb-2 group-hover:text-brand-red transition-colors duration-300">
+                <span class="text-4xl text-brand-navy-dark/70 mr-1 group-hover:text-brand-red/70 transition-colors duration-300">USD</span>1.200
+              </div>
+              <div class="font-heading text-slate-400 uppercase tracking-widest text-xs">Tope de indemnización</div>
+            </div>
+          </BentoSecondaryCard>
 
         </div>
       </SectionContainer>
