@@ -11,8 +11,7 @@ import { WhatsAppButton } from "~/components/ui/whatsapp-button";
 import { Chatbot } from "~/components/ui/chatbot";
 import { SitePopup } from "~/components/ui/site-popup";
 import { getDb } from "~/db";
-import { siteSettings } from "~/db/schema";
-import { eq } from "drizzle-orm";
+import { getSiteSettings } from "~/server/site-settings";
 import { Contact } from "~/components/landing/Contact";
 import { BRAND_COLORS } from "~/constants/brand";
 
@@ -101,12 +100,7 @@ export const useSendContactEmail = routeAction$(async (datos, { env, fail, reque
 
 export const useSiteSettings = routeLoader$(async (requestEvent) => {
   const db = getDb(requestEvent.env);
-  const [settings] = await db
-    .select()
-    .from(siteSettings)
-    .where(eq(siteSettings.id, 1))
-    .limit(1);
-  return settings || null;
+  return (await getSiteSettings(db)) ?? null;
 });
 
 export default component$(() => {
