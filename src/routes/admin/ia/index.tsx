@@ -5,9 +5,16 @@ import { eq, desc, count } from 'drizzle-orm';
 import { CONTACT } from '~/constants/contact';
 import { getOrCreateSiteSettings } from '~/server/site-settings';
 import { LuImage, LuTrash2 } from '@qwikest/icons/lucide';
-import { put } from '@vercel/blob';
-import imageCompression from 'browser-image-compression';
 import { getDb } from '~/db';
+import { uploadImageToBlob } from '~/server/blob-upload';
+import { AdminTabs } from '~/components/admin/AdminTabs';
+import { AdminFlash } from '~/components/admin/AdminFlash';
+import { AdminSectionHeader } from '~/components/admin/AdminSectionHeader';
+import { AdminSaveButton } from '~/components/admin/AdminSaveButton';
+import {
+  compressFormImages,
+  useAdminImageUpload,
+} from '~/components/admin/use-admin-image-upload';
 
 export const useChatSessions = routeLoader$(async (requestEvent) => {
   const db = getDb(requestEvent.env);
@@ -57,12 +64,11 @@ export const useUpdateAiSettingsAction = routeAction$(
       // Handle Avatar Image
       if (data.image && typeof data.image === 'object' && (data.image as Blob).size > 0) {
         const file = data.image as File;
-        const fileName = `ai-avatar-${Date.now()}.webp`;
-        const { url } = await put(fileName, file, {
-          access: 'public',
-          token: requestEvent.env.get('BLOB_READ_WRITE_TOKEN'),
-        });
-        uploadedAvatarUrl = url;
+        uploadedAvatarUrl = await uploadImageToBlob(
+          file,
+          `ai-avatar-${Date.now()}.webp`,
+          requestEvent.env.get('BLOB_READ_WRITE_TOKEN'),
+        );
       }
 
       await db
@@ -110,19 +116,12 @@ export default component$(() => {
 
   const s = settings.value;
 
-  const isCompressing = useSignal(false);
-
-  // Avatar states
-  const avatarUrl = useSignal(s.aiAvatarUrl || '');
-  const previewAvatarUrl = useSignal<string | null>(null);
-
-  const handleAvatarChange = $((event: Event) => {
-    const element = event.target as HTMLInputElement;
-    if (!element.files || element.files.length === 0) return;
-    const file = element.files[0];
-    previewAvatarUrl.value = URL.createObjectURL(file);
-    avatarUrl.value = '';
-  });
+  const {
+    storedUrl: avatarUrl,
+    previewUrl: previewAvatarUrl,
+    isCompressing,
+    onFileChange: handleAvatarChange,
+  } = useAdminImageUpload(s.aiAvatarUrl || '');
 
   const handleSubmit = $(async (e: Event, currentTarget: HTMLFormElement) => {
     if (isCompressing.value || action.isRunning) return;
@@ -130,20 +129,9 @@ export default component$(() => {
     isCompressing.value = true;
     try {
       const formData = new FormData(currentTarget);
-
-      // Compress Avatar
-      const imageFile = formData.get('image') as File | null;
-      if (imageFile && imageFile.size > 0 && imageFile.name) {
-        const options = {
-          maxWidthOrHeight: 500,
-          useWebWorker: true,
-          fileType: 'image/webp',
-          initialQuality: 0.8,
-        };
-        const compressedBlob = await imageCompression(imageFile, options);
-        formData.set('image', new File([compressedBlob], `avatar.webp`, { type: 'image/webp' }));
-      }
-
+      await compressFormImages(formData, [
+        { fieldName: 'image', maxWidthOrHeight: 500, outputFileName: 'avatar.webp' },
+      ]);
       await action.submit(formData);
     } catch (error) {
       console.error('Error al comprimir/subir imágenes:', error);
@@ -162,35 +150,21 @@ export default component$(() => {
           </p>
         </div>
 
-        <div class="flex gap-1 border-b border-slate-200" role="tablist">
-          <button
-            type="button"
-            class={[
-              'px-4 py-3 text-xs font-bold uppercase tracking-widest border-b-2 -mb-px transition-colors',
-              activeTab.value === 'audit' ? 'border-brand-navy-dark text-brand-navy-dark' : 'border-transparent text-slate-500 hover:text-slate-800',
-            ]}
-            onClick$={() => activeTab.value = 'audit'}
-          >
-            Auditoría Chats
-          </button>
-          <button
-            type="button"
-            class={[
-              'px-4 py-3 text-xs font-bold uppercase tracking-widest border-b-2 -mb-px transition-colors',
-              activeTab.value === 'config' ? 'border-brand-navy-dark text-brand-navy-dark' : 'border-transparent text-slate-500 hover:text-slate-800',
-            ]}
-            onClick$={() => activeTab.value = 'config'}
-          >
-            Chatbot IA
-          </button>
-        </div>
+        <AdminTabs
+          tabs={[
+            { id: 'audit', label: 'Auditoría Chats' },
+            { id: 'config', label: 'Chatbot IA' },
+          ]}
+          activeId={activeTab.value}
+          onSelect$={$((id) => {
+            activeTab.value = id as 'audit' | 'config';
+          })}
+        />
       </div>
 
       {activeTab.value === 'audit' && (
         <div class="space-y-6 animate-in fade-in">
-          {deleteAction.value?.success && (
-            <div class="bg-green-50 text-green-700 px-4 py-3 rounded-lg text-sm font-medium">✅ Chat eliminado.</div>
-          )}
+          <AdminFlash success={deleteAction.value?.success} successText="Chat eliminado." />
 
           <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
             <div class="overflow-x-auto">
@@ -251,24 +225,23 @@ export default component$(() => {
       {/* Unified Form for both Config and Popup tabs */}
       <Form action={action} class={{ 'hidden': activeTab.value === 'audit', 'space-y-8': true }} preventdefault:submit onSubmit$={handleSubmit}>
 
-        {action.value?.success && (
-          <div class="bg-green-50 text-green-700 px-4 py-3 rounded-lg text-sm font-medium">✅ Configuración guardada.</div>
-        )}
-        {action.value?.failed && (
-          <div class="bg-red-50 text-red-700 px-4 py-3 rounded-lg text-sm font-medium">❌ {action.value.message}</div>
-        )}
+        <AdminFlash
+          success={action.value?.success}
+          failed={action.value?.failed}
+          message={action.value?.message}
+          successText="Configuración guardada."
+        />
 
         <div class={['animate-in fade-in space-y-6', activeTab.value === 'config' ? 'block' : 'hidden']}>
           <input type="hidden" name="aiAvatarUrl" value={avatarUrl.value} />
 
           <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="bg-brand-navy-dark px-8 py-5 flex items-center justify-between">
-              <h2 class="text-xl font-display text-white uppercase tracking-wide">Comportamiento IA</h2>
+            <AdminSectionHeader title="Comportamiento IA" variant="navy">
               <div class="flex items-center gap-3 bg-white/10 px-4 py-2 rounded-lg border border-white/20">
                 <input type="checkbox" id="aiEnabled" name="aiEnabled" checked={s.aiEnabled ?? true} class="w-4 h-4" />
                 <label for="aiEnabled" class="text-xs font-bold text-white uppercase cursor-pointer">Habilitado</label>
               </div>
-            </div>
+            </AdminSectionHeader>
 
             <div class="p-8 space-y-6">
               <div class="flex flex-col md:flex-row gap-6">
@@ -314,15 +287,7 @@ export default component$(() => {
           </div>
         </div>
 
-        <div class="flex justify-end pt-4">
-          <button
-            type="submit"
-            disabled={action.isRunning || isCompressing.value}
-            class="bg-brand-navy-dark text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-brand-navy-hover transition disabled:opacity-50"
-          >
-            {action.isRunning || isCompressing.value ? 'Guardando...' : 'Guardar Todos los Cambios'}
-          </button>
-        </div>
+        <AdminSaveButton isRunning={action.isRunning} isCompressing={isCompressing.value} />
       </Form>
     </div>
   );
