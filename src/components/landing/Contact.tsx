@@ -1,6 +1,7 @@
 import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import { Form } from "@builder.io/qwik-city";
 import { useSendContactEmail } from "~/routes/index";
+import { SectionContainer } from "./SectionContainer";
 
 // Definimos la interfaz para window.turnstile para TypeScript
 declare global {
@@ -54,7 +55,7 @@ export const Contact = component$(() => {
 
   return (
     <section id="contacto-form" class="py-24 bg-white relative overflow-hidden">
-      <div class="max-w-[1600px] mx-auto px-6 w-full relative z-10">
+      <SectionContainer class="relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           
           {/* Lado Izquierdo: Mensaje de Tranquilidad y Badge */}
@@ -189,7 +190,7 @@ export const Contact = component$(() => {
           </div>
 
         </div>
-      </div>
+      </SectionContainer>
     </section>
   );
 });

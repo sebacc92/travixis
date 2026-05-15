@@ -1,4 +1,7 @@
 import { component$ } from "@builder.io/qwik";
+import { CONTACT } from "~/constants/contact";
+import { TRUST_BADGES } from "~/data/trust-badges";
+import { SectionContainer } from "./SectionContainer";
 
 interface HeroProps {
   title1?: string;
@@ -14,7 +17,7 @@ export const Hero = component$<HeroProps>(({ title1, title2, subtitle, whatsappN
       class="relative flex items-center justify-center bg-white pt-32 pb-0 overflow-hidden lg:min-h-[85vh]"
       aria-labelledby="hero-heading"
     >
-      <div class="relative z-10 max-w-[1600px] mx-auto px-6 w-full">
+      <SectionContainer class="relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-16 lg:gap-4 items-center">
 
           {/* Lado Izquierdo: Texto */}
@@ -54,7 +57,7 @@ export const Hero = component$<HeroProps>(({ title1, title2, subtitle, whatsappN
             {/* Call to Action Crítico (Rojo + Glassmorphism) */}
             <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
               <a
-                href={`tel:+${whatsappNumber || '5491150532300'}`}
+                href={`tel:+${whatsappNumber || CONTACT.phoneE164}`}
                 id="hero-emergency-cta"
                 class="group flex items-center gap-4 bg-brand-red/95 backdrop-blur-md hover:bg-brand-red-hover text-white font-heading font-bold text-lg px-8 py-4 rounded-2xl shadow-xl shadow-brand-red/30 transition-all duration-300 hover:scale-105 hover:shadow-brand-red/50"
                 aria-label="Llamar al número de emergencias"
@@ -66,17 +69,14 @@ export const Hero = component$<HeroProps>(({ title1, title2, subtitle, whatsappN
                 </span>
                 <div class="text-left">
                   <div class="text-sm text-white/90 font-normal leading-none mb-1">Llamar a Emergencias</div>
-                  <div class="font-display tracking-widest text-3xl leading-none">{whatsappNumber || '5491150532300'}</div>
+                  <div class="font-display tracking-widest text-3xl leading-none">{whatsappNumber || CONTACT.phoneE164}</div>
                 </div>
               </a>
             </div>
 
             {/* Indicadores de confianza */}
             <div class="flex flex-wrap items-center gap-8 mt-12">
-              {[
-                { label: "Respuesta en minutos", icon: "⚡" },
-                { label: "Sin copago inicial", icon: "🏥" },
-              ].map((item) => (
+              {TRUST_BADGES.map((item) => (
                 <div key={item.label} class="flex items-center gap-2 text-brand-navy/70">
                   <span class="text-2xl">{item.icon}</span>
                   <span class="font-body text-sm font-semibold">{item.label}</span>
@@ -111,7 +111,7 @@ export const Hero = component$<HeroProps>(({ title1, title2, subtitle, whatsappN
           </div>
 
         </div>
-      </div>
+      </SectionContainer>
     </section>
   );
 });

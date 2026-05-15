@@ -1,13 +1,16 @@
 import { component$, useSignal } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 import logoSrc from "~/media/logo2.svg";
+import { CONTACT } from "~/constants/contact";
+import { NAV_LINKS } from "~/data/nav";
+import { SectionContainer } from "./SectionContainer";
 
 export const Navbar = component$(() => {
   const menuOpen = useSignal(false);
 
   return (
     <header class="fixed top-0 left-0 right-0 z-50 bg-brand-navy border-b border-white/10">
-      <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionContainer padding="responsive">
         <div class="flex items-center justify-between h-16 lg:h-20">
 
           {/* Logo */}
@@ -23,15 +26,17 @@ export const Navbar = component$(() => {
 
           {/* Desktop Nav */}
           <nav class="hidden lg:flex items-center gap-10" aria-label="Navegación principal">
-            <a href="#beneficios" class="text-white/80 hover:text-white text-lg font-medium transition-colors duration-200">Beneficios</a>
-            <a href="#cobertura" class="text-white/80 hover:text-white text-lg font-medium transition-colors duration-200">Cobertura</a>
-            <a href="#contacto" class="text-white/80 hover:text-white text-lg font-medium transition-colors duration-200">Contacto</a>
+            {NAV_LINKS.map((link) => (
+              <a key={link.href} href={link.href} class="text-white/80 hover:text-white text-lg font-medium transition-colors duration-200">
+                {link.label}
+              </a>
+            ))}
           </nav>
 
           {/* CTA Desktop */}
           <div class="hidden lg:flex items-center gap-3">
             <a
-              href="tel:+5491150532300"
+              href={CONTACT.phoneTel}
               id="navbar-emergency-cta"
               class="flex items-center gap-2 bg-brand-red hover:bg-brand-red-hover text-white text-base font-bold px-5 py-2.5 rounded-lg transition-all duration-200 hover:scale-105 shadow-lg shadow-red-900/30"
             >
@@ -63,11 +68,18 @@ export const Navbar = component$(() => {
         {/* Mobile Menu */}
         {menuOpen.value && (
           <nav class="lg:hidden pb-4 border-t border-white/10 pt-4 flex flex-col gap-5" aria-label="Menú móvil">
-            <a href="#beneficios" class="text-white/80 hover:text-white text-base font-medium" onClick$={() => (menuOpen.value = false)}>Beneficios</a>
-            <a href="#cobertura" class="text-white/80 hover:text-white text-base font-medium" onClick$={() => (menuOpen.value = false)}>Cobertura</a>
-            <a href="#contacto" class="text-white/80 hover:text-white text-base font-medium" onClick$={() => (menuOpen.value = false)}>Contacto</a>
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                class="text-white/80 hover:text-white text-base font-medium"
+                onClick$={() => (menuOpen.value = false)}
+              >
+                {link.label}
+              </a>
+            ))}
             <a
-              href="tel:+5491150532300"
+              href={CONTACT.phoneTel}
               class="flex items-center justify-center gap-2 bg-brand-red text-white text-base font-bold px-4 py-3.5 rounded-lg"
             >
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -77,7 +89,7 @@ export const Navbar = component$(() => {
             </a>
           </nav>
         )}
-      </div>
+      </SectionContainer>
     </header>
   );
 });

@@ -1,5 +1,8 @@
 import { component$ } from "@builder.io/qwik";
 import logoSrc from "~/media/logo2.svg";
+import { CONTACT } from "~/constants/contact";
+import { FOOTER_COVERAGE_LINKS } from "~/data/footer-links";
+import { SectionContainer } from "./SectionContainer";
 
 export const Footer = component$(() => {
   const year = new Date().getFullYear();
@@ -11,7 +14,7 @@ export const Footer = component$(() => {
       aria-labelledby="footer-heading"
     >
       {/* Main footer content */}
-      <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <SectionContainer padding="responsive" class="py-16">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
 
           {/* Brand column */}
@@ -36,12 +39,7 @@ export const Footer = component$(() => {
               Coberturas
             </h3>
             <ul class="flex flex-col gap-3">
-              {[
-                "Emergencias Médicas",
-                "Reintegro de Medicamentos",
-                "Pérdida de Equipaje",
-                "Asistencia 24/7",
-              ].map((item) => (
+              {FOOTER_COVERAGE_LINKS.map((item) => (
                 <li key={item}>
                   <a
                     href="#cobertura"
@@ -62,7 +60,7 @@ export const Footer = component$(() => {
             <ul class="flex flex-col gap-4">
               <li>
                 <a
-                  href="tel:+5491150532300"
+                  href={CONTACT.phoneTel}
                   class="flex items-center gap-3 group"
                   aria-label="Llamar al número de emergencias"
                 >
@@ -74,14 +72,14 @@ export const Footer = component$(() => {
                   <div>
                     <p class="text-white/40 text-xs">Emergencias 24/7</p>
                     <p class="text-white font-semibold text-sm group-hover:text-brand-red transition-colors">
-                      54 9 11 5053-2300
+                      {CONTACT.phoneDisplay}
                     </p>
                   </div>
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:info@travixis.com.ar"
+                  href={`mailto:${CONTACT.email}`}
                   class="flex items-center gap-3 group"
                   aria-label="Enviar correo a Travixis"
                 >
@@ -93,7 +91,7 @@ export const Footer = component$(() => {
                   <div>
                     <p class="text-white/40 text-xs">Consultas generales</p>
                     <p class="text-white font-semibold text-sm group-hover:text-white/80 transition-colors uppercase">
-                      INFO@TRAVIXIS.COM.AR
+                      {CONTACT.emailDisplay}
                     </p>
                   </div>
                 </a>
@@ -101,11 +99,11 @@ export const Footer = component$(() => {
             </ul>
           </div>
         </div>
-      </div>
+      </SectionContainer>
 
       {/* Legal bar */}
       <div class="border-t border-white/10">
-        <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <SectionContainer padding="responsive" class="py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p class="text-white/30 text-xs text-center sm:text-left leading-relaxed">
             © {year} Travixis Travel Care. Servicio prestado por{" "}
             <strong class="text-white/40">Universal Assistance S.A.</strong> Av. Córdoba 967 (C1054AAI) Buenos Aires. Argentina.
@@ -113,7 +111,7 @@ export const Footer = component$(() => {
           <p class="text-white/20 text-xs whitespace-nowrap">
             Todos los derechos reservados.
           </p>
-        </div>
+        </SectionContainer>
       </div>
     </footer>
   );
