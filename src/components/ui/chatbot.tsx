@@ -89,7 +89,7 @@ export const Chatbot = component$((props: { avatarUrl?: string }) => {
       {!state.isOpen && (
         <span
           class={[
-            "fixed z-40 w-16 h-16 rounded-full bg-[#C8102E] animate-ping opacity-60 pointer-events-none transition-all duration-300 right-6",
+            "fixed z-40 w-16 h-16 rounded-full bg-brand-red animate-ping opacity-60 pointer-events-none transition-all duration-300 right-6",
             bottomPos
           ]}
         ></span>
@@ -97,11 +97,11 @@ export const Chatbot = component$((props: { avatarUrl?: string }) => {
       <button
         onClick$={() => (state.isOpen = !state.isOpen)}
         class={[
-          "fixed z-50 rounded-full shadow-2xl shadow-[#C8102E]/25 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center border-2 cursor-pointer right-6 overflow-hidden",
+          "fixed z-50 rounded-full shadow-2xl shadow-brand-red/25 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center border-2 cursor-pointer right-6 overflow-hidden",
           bottomPos,
           state.isOpen
             ? "bg-slate-950 text-white w-14 h-14 border-slate-800 p-3"
-            : "bg-[#0D1B3E] text-white w-16 h-16 border-[#1a3a7a] " + (props.avatarUrl ? "p-0 border-0" : "p-3")
+            : "bg-brand-navy-dark text-white w-16 h-16 border-brand-navy-hover " + (props.avatarUrl ? "p-0 border-0" : "p-3")
         ]}
         aria-label="Abrir asistente virtual"
       >
@@ -128,17 +128,17 @@ export const Chatbot = component$((props: { avatarUrl?: string }) => {
         >
 
           {/* Header */}
-          <div class="bg-[#0D1B3E] text-white p-5 flex items-center justify-between">
+          <div class="bg-brand-navy-dark text-white p-5 flex items-center justify-between">
             <div class="flex items-center gap-3">
               <div class="relative">
                 {props.avatarUrl ? (
-                  <img src={props.avatarUrl} alt="Asistente IA" class="w-10 h-10 rounded-full object-cover border-2 border-[#C8102E]" />
+                  <img src={props.avatarUrl} alt="Asistente IA" class="w-10 h-10 rounded-full object-cover border-2 border-brand-red" />
                 ) : (
-                  <div class="w-10 h-10 bg-[#C8102E] rounded-full flex items-center justify-center font-black text-lg text-white">
+                  <div class="w-10 h-10 bg-brand-red rounded-full flex items-center justify-center font-black text-lg text-white">
                     TX
                   </div>
                 )}
-                <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-[#0D1B3E] rounded-full animate-pulse"></div>
+                <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-brand-navy-dark rounded-full animate-pulse"></div>
               </div>
               <div>
                 <h3 class="font-black text-base tracking-widest uppercase text-white">Asistente IA</h3>
@@ -164,7 +164,7 @@ export const Chatbot = component$((props: { avatarUrl?: string }) => {
                   class={[
                     "max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-sm leading-relaxed",
                     msg.role === 'user'
-                      ? "bg-[#0D1B3E] text-white rounded-br-none"
+                      ? "bg-brand-navy-dark text-white rounded-br-none"
                       : "bg-white border border-slate-200 text-slate-800 rounded-bl-none"
                   ]}
                 >
@@ -176,9 +176,9 @@ export const Chatbot = component$((props: { avatarUrl?: string }) => {
             {state.isLoading && (
               <div class="flex justify-start">
                 <div class="bg-white border border-slate-200 text-slate-400 rounded-2xl rounded-bl-none px-4 py-3 text-sm shadow-sm flex items-center gap-1.5">
-                  <div class="w-1.5 h-1.5 bg-[#C8102E] rounded-full animate-bounce"></div>
-                  <div class="w-1.5 h-1.5 bg-[#C8102E] rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                  <div class="w-1.5 h-1.5 bg-[#C8102E] rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                  <div class="w-1.5 h-1.5 bg-brand-red rounded-full animate-bounce"></div>
+                  <div class="w-1.5 h-1.5 bg-brand-red rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                  <div class="w-1.5 h-1.5 bg-brand-red rounded-full animate-bounce [animation-delay:-0.3s]"></div>
                 </div>
               </div>
             )}
@@ -195,13 +195,13 @@ export const Chatbot = component$((props: { avatarUrl?: string }) => {
                 type="text"
                 bind:value={inputValue}
                 placeholder="Escribe tu consulta..."
-                class="flex-1 bg-slate-100 text-sm rounded-xl px-4 py-3 border border-transparent focus:outline-none focus:bg-white focus:border-[#0D1B3E] transition-all"
+                class="flex-1 bg-slate-100 text-sm rounded-xl px-4 py-3 border border-transparent focus:outline-none focus:bg-white focus:border-brand-navy-dark transition-all"
                 disabled={state.isLoading}
               />
               <button
                 type="submit"
                 disabled={!inputValue.value.trim() || state.isLoading}
-                class="bg-[#C8102E] p-3 text-white rounded-xl flex items-center justify-center transition-all active:scale-95 disabled:bg-slate-200 disabled:text-slate-400 disabled:opacity-50"
+                class="bg-brand-red p-3 text-white rounded-xl flex items-center justify-center transition-all active:scale-95 disabled:bg-slate-200 disabled:text-slate-400 disabled:opacity-50"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                   <path d="M3.478 2.404a.75.75 0 00-.926.941l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.404z" />

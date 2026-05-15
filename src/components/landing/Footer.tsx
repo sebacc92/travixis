@@ -7,7 +7,7 @@ export const Footer = component$(() => {
   return (
     <footer
       id="contacto"
-      class="bg-[#01254f] text-white"
+      class="bg-brand-navy text-white"
       aria-labelledby="footer-heading"
     >
       {/* Main footer content */}
@@ -66,14 +66,14 @@ export const Footer = component$(() => {
                   class="flex items-center gap-3 group"
                   aria-label="Llamar al número de emergencias"
                 >
-                  <span class="flex items-center justify-center w-9 h-9 bg-[#C8102E] rounded-lg flex-shrink-0 group-hover:bg-[#a50d25] transition-colors">
+                  <span class="flex items-center justify-center w-9 h-9 bg-brand-red rounded-lg flex-shrink-0 group-hover:bg-brand-red-hover transition-colors">
                     <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02L6.62 10.79z"/>
                     </svg>
                   </span>
                   <div>
                     <p class="text-white/40 text-xs">Emergencias 24/7</p>
-                    <p class="text-white font-semibold text-sm group-hover:text-[#C8102E] transition-colors">
+                    <p class="text-white font-semibold text-sm group-hover:text-brand-red transition-colors">
                       54 9 11 5053-2300
                     </p>
                   </div>

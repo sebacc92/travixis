@@ -177,7 +177,7 @@ export default component$(() => {
     <div class="max-w-6xl mx-auto space-y-6 pb-20 p-8">
       <div class="space-y-4">
         <div>
-          <h1 class="text-3xl font-display text-[#0D1B3E] uppercase tracking-tight">Travixis Settings</h1>
+          <h1 class="text-3xl font-display text-brand-navy-dark uppercase tracking-tight">Travixis Settings</h1>
           <p class="font-body text-sm text-slate-500 mt-1">
             Administra el comportamiento del Chatbot y el Popup Promocional.
           </p>
@@ -188,7 +188,7 @@ export default component$(() => {
             type="button"
             class={[
               'px-4 py-3 text-xs font-bold uppercase tracking-widest border-b-2 -mb-px transition-colors',
-              activeTab.value === 'audit' ? 'border-[#0D1B3E] text-[#0D1B3E]' : 'border-transparent text-slate-500 hover:text-slate-800',
+              activeTab.value === 'audit' ? 'border-brand-navy-dark text-brand-navy-dark' : 'border-transparent text-slate-500 hover:text-slate-800',
             ]}
             onClick$={() => activeTab.value = 'audit'}
           >
@@ -198,7 +198,7 @@ export default component$(() => {
             type="button"
             class={[
               'px-4 py-3 text-xs font-bold uppercase tracking-widest border-b-2 -mb-px transition-colors',
-              activeTab.value === 'config' ? 'border-[#0D1B3E] text-[#0D1B3E]' : 'border-transparent text-slate-500 hover:text-slate-800',
+              activeTab.value === 'config' ? 'border-brand-navy-dark text-brand-navy-dark' : 'border-transparent text-slate-500 hover:text-slate-800',
             ]}
             onClick$={() => activeTab.value = 'config'}
           >
@@ -234,7 +234,7 @@ export default component$(() => {
                         {session.lastActive ? new Date(session.lastActive).toLocaleString('es-AR') : '—'}
                       </td>
                       <td class="px-6 py-4">
-                        <span class="inline-flex px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-[#0D1B3E]/10 text-[#0D1B3E]">
+                        <span class="inline-flex px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-brand-navy-dark/10 text-brand-navy-dark">
                           {session.messageCount}
                         </span>
                       </td>
@@ -283,7 +283,7 @@ export default component$(() => {
           <input type="hidden" name="aiAvatarUrl" value={avatarUrl.value} />
 
           <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="bg-[#0D1B3E] px-8 py-5 flex items-center justify-between">
+            <div class="bg-brand-navy-dark px-8 py-5 flex items-center justify-between">
               <h2 class="text-xl font-display text-white uppercase tracking-wide">Comportamiento IA</h2>
               <div class="flex items-center gap-3 bg-white/10 px-4 py-2 rounded-lg border border-white/20">
                 <input type="checkbox" id="aiEnabled" name="aiEnabled" checked={s.aiEnabled ?? true} class="w-4 h-4" />
@@ -339,7 +339,7 @@ export default component$(() => {
           <button
             type="submit"
             disabled={action.isRunning || isCompressing.value}
-            class="bg-[#0D1B3E] text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-[#1a3a7a] transition disabled:opacity-50"
+            class="bg-brand-navy-dark text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-brand-navy-hover transition disabled:opacity-50"
           >
             {action.isRunning || isCompressing.value ? 'Guardando...' : 'Guardar Todos los Cambios'}
           </button>

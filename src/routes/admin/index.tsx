@@ -138,7 +138,7 @@ export default component$(() => {
     <div class="max-w-6xl mx-auto space-y-6 pb-20 p-8">
       <div class="space-y-4">
         <div>
-          <h1 class="text-3xl font-display text-[#0D1B3E] uppercase tracking-tight">Contenido Web</h1>
+          <h1 class="text-3xl font-display text-brand-navy-dark uppercase tracking-tight">Contenido Web</h1>
           <p class="font-body text-sm text-slate-500 mt-1">
             Administra los textos principales y popups de la Landing Page.
           </p>
@@ -149,7 +149,7 @@ export default component$(() => {
             type="button"
             class={[
               'px-4 py-3 text-xs font-bold uppercase tracking-widest border-b-2 -mb-px transition-colors',
-              activeTab.value === 'hero' ? 'border-[#0D1B3E] text-[#0D1B3E]' : 'border-transparent text-slate-500 hover:text-slate-800',
+              activeTab.value === 'hero' ? 'border-brand-navy-dark text-brand-navy-dark' : 'border-transparent text-slate-500 hover:text-slate-800',
             ]}
             onClick$={() => activeTab.value = 'hero'}
           >
@@ -159,7 +159,7 @@ export default component$(() => {
             type="button"
             class={[
               'px-4 py-3 text-xs font-bold uppercase tracking-widest border-b-2 -mb-px transition-colors',
-              activeTab.value === 'popup' ? 'border-[#C8102E] text-[#C8102E]' : 'border-transparent text-slate-500 hover:text-slate-800',
+              activeTab.value === 'popup' ? 'border-brand-red text-brand-red' : 'border-transparent text-slate-500 hover:text-slate-800',
             ]}
             onClick$={() => activeTab.value = 'popup'}
           >
@@ -180,7 +180,7 @@ export default component$(() => {
         {/* HERO TAB */}
         <div class={['animate-in fade-in space-y-6', activeTab.value === 'hero' ? 'block' : 'hidden']}>
           <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="bg-[#0D1B3E] px-8 py-5">
+            <div class="bg-brand-navy-dark px-8 py-5">
               <h2 class="text-xl font-display text-white uppercase tracking-wide">Textos Principales</h2>
             </div>
 
@@ -191,8 +191,8 @@ export default component$(() => {
                   <input type="text" name="homeTitle1" value={s.homeTitle1 || ''} placeholder="Ej: VIAJAR CON" class="w-full rounded-lg border border-slate-200 px-4 py-3 text-lg font-bold" />
                 </div>
                 <div>
-                  <label class="block text-xs font-bold text-[#C8102E] uppercase mb-1">Título Destacado (Parte 2)</label>
-                  <input type="text" name="homeTitle2" value={s.homeTitle2 || ''} placeholder="Ej: RESPALDO REAL" class="w-full rounded-lg border border-red-200 px-4 py-3 text-lg font-bold text-[#C8102E] focus:border-red-400 focus:ring-red-400" />
+                  <label class="block text-xs font-bold text-brand-red uppercase mb-1">Título Destacado (Parte 2)</label>
+                  <input type="text" name="homeTitle2" value={s.homeTitle2 || ''} placeholder="Ej: RESPALDO REAL" class="w-full rounded-lg border border-red-200 px-4 py-3 text-lg font-bold text-brand-red focus:border-red-400 focus:ring-red-400" />
                 </div>
               </div>
 
@@ -208,7 +208,7 @@ export default component$(() => {
         <div class={['animate-in fade-in space-y-6', activeTab.value === 'popup' ? 'block' : 'hidden']}>
            <input type="hidden" name="popupImageUrl" value={popupUrl.value} />
            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="bg-[#C8102E] px-8 py-5 flex items-center justify-between">
+            <div class="bg-brand-red px-8 py-5 flex items-center justify-between">
               <h2 class="text-xl font-display text-white uppercase tracking-wide">Popup Promocional</h2>
               <div class="flex items-center gap-3 bg-white/10 px-4 py-2 rounded-lg border border-white/20">
                 <input type="checkbox" id="popupEnabled" name="popupEnabled" checked={s.popupEnabled ?? false} class="w-4 h-4" />
@@ -260,7 +260,7 @@ export default component$(() => {
           <button
             type="submit"
             disabled={action.isRunning || isCompressing.value}
-            class="bg-[#0D1B3E] text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-[#1a3a7a] transition disabled:opacity-50"
+            class="bg-brand-navy-dark text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-brand-navy-hover transition disabled:opacity-50"
           >
             {action.isRunning || isCompressing.value ? 'Guardando...' : 'Guardar Todos los Cambios'}
           </button>
