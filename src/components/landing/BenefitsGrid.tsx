@@ -1,4 +1,5 @@
 import { component$ } from "@builder.io/qwik";
+import { SectionContainer } from "./SectionContainer";
 
 export const BenefitsGrid = component$(() => {
   return (
@@ -7,7 +8,7 @@ export const BenefitsGrid = component$(() => {
       class="relative py-24 bg-slate-50 overflow-hidden"
       aria-labelledby="benefits-heading"
     >
-      <div class="max-w-[1600px] mx-auto px-6 w-full">
+      <SectionContainer>
         {/* Cabecera de Sección */}
         <div class="mb-16 md:w-2/3">
           <h2
@@ -97,7 +98,7 @@ export const BenefitsGrid = component$(() => {
           </div>
 
         </div>
-      </div>
+      </SectionContainer>
     </section>
   );
 });

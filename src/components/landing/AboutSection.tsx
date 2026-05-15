@@ -1,9 +1,10 @@
 import { component$ } from "@builder.io/qwik";
+import { SectionContainer } from "./SectionContainer";
 
 export const AboutSection = component$(() => {
   return (
     <section class="py-24 bg-white relative overflow-hidden" id="nosotros">
-      <div class="max-w-[1600px] mx-auto px-6 w-full relative z-10">
+      <SectionContainer class="relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           
           {/* Lado Izquierdo: Composición de Imágenes */}
@@ -67,7 +68,7 @@ export const AboutSection = component$(() => {
           </div>
 
         </div>
-      </div>
+      </SectionContainer>
     </section>
   );
 });
